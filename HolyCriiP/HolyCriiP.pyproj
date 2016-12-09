@@ -32,6 +32,12 @@
     <Compile Include="Functions.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Monitor.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XorThread.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

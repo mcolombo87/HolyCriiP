@@ -4,15 +4,14 @@ from cryptography.hazmat import backends
 from cryptography.hazmat.primitives.ciphers import algorithms, modes,  Cipher
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.backends import default_backend
-import hashlib
-import sys
-import math
+import hashlib, sys, math, getpass
 from Files import *
 from Functions import *
 
 def blocksKey():
     #Genera y devuelve la clave que define el tamanio de bloques
-    keyUserInput = input("Ingrese la clave principal: ").encode('ascii')
+    print("Insert Principal Key")
+    keyUserInput = getpass.getpass().encode('ascii')
     padder = padding.PKCS7(128).padder() #Implement for AES crypt
     padded_data = padder.update(keyUserInput)
     padded_data += padder.finalize()
@@ -25,7 +24,8 @@ def blocksKey():
 
 def rangeKey():
     #Genera y devuelve la clave que define el rango de bloques a tomar
-    keyUserInput = input("Ingrese una segunda clave (deben ser 4 digitos, solo numeros): ")
+    print("Insert a Second key (must be 4 digits, only numbers)")
+    keyUserInput = getpass.getpass('Key:')
     keyAcumulator = 0
     for i in range(4):
         keyAcumulator = keyAcumulator + int(keyUserInput[i])
@@ -45,6 +45,7 @@ def rangeKey():
 def cryptorAES(key1, key2, word):
     #Genera la encriptacion o la deshace si se encuentra encriptado y las claves son identicas
     #word: debe ser el dato en BYTES a cifrar
+    '''This not working yet. Don't use it'''
     backend = backends.default_backend()
     cipher = Cipher(algorithms.AES(key1), modes.CBC(key2), backend)
     encryptor = cipher.encryptor()
