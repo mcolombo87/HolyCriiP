@@ -36,7 +36,7 @@ def rangeKey():
     #For xor crypt
     if ( int(keyUserInput[1]) != 0):
         secondKey = keyAcumulator * int(keyUserInput[1])
-    while (secondKey > 123):
+    while (secondKey > 127):
         secondKey = secondKey / 2
         secondKey = int(math.floor(secondKey))
             #falta interactuar la clave con la primaria para ampliar el espectro

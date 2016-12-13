@@ -1,4 +1,4 @@
-import threading, Files, Monitor
+import threading, Monitor, Files
 
 class XorThread(threading.Thread):
 
@@ -28,12 +28,7 @@ def xorProcess(self):
 def writeFileThread(self, data):
 
     print ("Thread Wait {}".format(self.num))
-    orderList = self.num - 1
-    if (self.num == 1):
-        self.monitor.setThreadToSet(orderList)
-    self.monitor.setThreadToWait(orderList)
+    self.monitor.requestAccess(self.num)
     print ("Thread Write {}".format(self.num))
     self.fileToOverwrite.write(data)
-    self.monitor.setThreadToClear(orderList)
-    if (self.monitor.isLastThread(self.num) == False):
-        self.monitor.setThreadToSet(orderList + 1) #Set thread after him
+    self.monitor.reportFinally(self.num)

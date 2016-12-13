@@ -11,9 +11,15 @@ def fileSearch():
     return fileName
 
 def abrirArchivo(ruta):
-    print(ruta)
-    archivo = open(ruta, "r+b")
-    return archivo
+    try:
+        print(ruta)
+        archivo = open(ruta, "r+b")
+    except FileNotFoundError:
+        print("File not found")
+        os.system("PAUSE")
+        exit()
+    finally:
+        return archivo
 
 def fileOverwrite (filePath, fileCrypt):
     fileCrypt.seek(0,0)
@@ -42,7 +48,7 @@ def fileOverwriteThreadingWithXOR (filePath, fileCrypt, xorKey):
     fileSize = os.path.getsize(filePath)
     fileToOverwrite = open(filePath, "wb")
     fileCrypt.seek(0,0)
-    lengthToCatch = fileSize / 4
+    lengthToCatch = fileSize / 10
     lengthToCatch = int(math.floor(lengthToCatch))
     counter = 0
     thNumb = 1 #assigned number to each new thread
@@ -79,4 +85,3 @@ def renameFile (filePath):
     else:
         newName = filePath + '.hc'
         os.rename(filePath, newName)
-
